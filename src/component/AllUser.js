@@ -25,7 +25,7 @@ const AllUser = () => {
                         <div className='col-sm-6 col-lg-4'>
                             <div className="card text-center register" style={{width: '24rem'}}>
                                 <div className="card-header">
-                                    <img src={'logo192.png'} style={{width: "1rem"}}/> Alert <img src={'logo192.png'} style={{width: "1rem"}}/>
+                                    <img src={'logo192.png'} style={{width: "1rem"}} alt="..."/> Alert <img src={'logo192.png'} style={{width: "1rem"}} alt="..."/>
                                 </div>
                                 <div className="card-body">
                                     <div className="card-body">
@@ -49,7 +49,7 @@ const AllUser = () => {
                                     <div className="text-center">
                                         <button type="button" className="btn btn-sm btn-success rounded-1"
                                         onClick={() => cekMessage(nama)}>
-                                            Cek Message
+                                            Cek Pesan
                                         </button>
                                     </div>
                                 </div>

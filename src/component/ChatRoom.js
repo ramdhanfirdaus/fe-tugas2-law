@@ -110,26 +110,48 @@ const ChatRoom = () => {
                 <div className="chat-box">
                     <div className="member-list">
                         <ul>
-                            <li onClick={() => { setTab("CHATROOM") }} className={`member ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
+                            <li onClick={() => { setTab("CHATROOM") }} className={`member mb-3 rounded ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
                             {[...privateChats.keys()].map((name, index) => (
-                                <li onClick={() => { setTab(name) }} className={`member ${tab === name && "active"}`} key={index}>{name}</li>
+                                <>
+                                    {userData.username !== name && (
+                                        <li onClick={() => { setTab(name) }} className={`member mb-3 rounded ${tab === name && "active"}`} key={index}>{name}</li>
+                                    )}
+                                </>
                             ))}
                         </ul>
                     </div>
                     {tab === "CHATROOM" && <div className="chat-content">
                         <ul className="chat-messages">
+                            {/*<div className="box3-right sb13">I'm speech bubbleI'm speech bubbleI'm speech bubbleI'm speech bubble</div>*/}
+                            {/*<div className="box3-left sb14">I'm spee ch bubble</div>*/}
                             {publicChats.map((chat, index) => (
                                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                    <div className="message-data">{chat.message}</div>
-                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                    {chat.senderName !== userData.username && <div className="avatar">
+                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                    </div>}
+                                    {chat.senderName !== userData.username && (
+                                        <div>
+                                            <p className='name-sender my-0'>{chat.senderName}</p>
+                                            <div className="box3-left sb14">{chat.message}</div>
+                                        </div>
+                                    )}
+                                    {/*<div className="message-data">{chat.message}</div>*/}
+                                    {chat.senderName === userData.username && (
+                                        <div>
+                                            <p className='self-sender my-0'>{chat.senderName}</p>
+                                            <div className="box3-right sb13">{chat.message}</div>
+                                        </div>
+                                    )}
+                                    {chat.senderName === userData.username && <div className="avatar self">
+                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                    </div>}
                                 </li>
                             ))}
                         </ul>
 
                         <div className="send-message">
-                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                            <button type="button" className="send-button" onClick={sendValue}>send</button>
+                            <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
+                            <button type="button" className="send-button rounded" onClick={sendValue}>Kirim</button>
                         </div>
                     </div>}
                     {tab !== "CHATROOM" && <div className="chat-content">
@@ -155,7 +177,7 @@ const ChatRoom = () => {
                     <div className='col-sm-6 col-lg-4'>
                         <div className="card text-center register" style={{width: '24rem'}}>
                             <div className="card-header">
-                                <img src={'chat.png'} style={{width: "1rem"}}/> Chat Room <img src={'chatreverse.png'} style={{width: "1rem"}}/>
+                                <img src={'chat.png'} style={{width: "1rem"}} alt="..."/> Chat Room <img src={'chatreverse.png'} style={{width: "1rem"}} alt="..."/>
                             </div>
                             <div className="card-body">
                                 <div className="input-group p-3">

@@ -35,22 +35,29 @@ button {
   position: fixed!important;
   box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
   top: 30%;
-  /*left: 32%;*/
   display: flex;
   flex-direction: row;
 }
 
 .chat-box {
-  box-shadow: 0 2.8px 2.2px rgba(0, 0, 0, 0.034), 0 6.7px 5.3px rgba(0, 0, 0, 0.048), 0 12.5px 10px rgba(0, 0, 0, 0.06), 0 22.3px 17.9px rgba(0, 0, 0, 0.072), 0 41.8px 33.4px rgba(0, 0, 0, 0.086), 0 100px 80px rgba(0, 0, 0, 0.12);
+  box-shadow:
+          0 2.8px 2.2px rgba(0, 0, 0, 0.034),
+          0 6.7px 5.3px rgba(0, 0, 0, 0.048),
+          0 12.5px 10px rgba(0, 0, 0, 0.06),
+          0 100px 80px rgba(0, 0, 0, 0.12);
   margin: 40px 50px;
   height: 600px;
   padding: 10px;
   display: flex;
   flex-direction: row;
+  border: 0.1px var(--bs-card-border-color);
+  border-style: outset;
+  border-radius: 10px;
 }
 
 .member-list {
   width: 20%;
+  padding-top: 1rem!important;
 }
 
 .chat-content {
@@ -61,6 +68,8 @@ button {
 .chat-messages {
   height: 80%;
   border: 1px solid #000;
+  border-radius: 5px;
+  overflow-y: scroll;
 }
 
 .send-message {
@@ -71,7 +80,6 @@ button {
 
 .input-message {
   width: 90%;
-  border-radius: 50px;
 }
 
 ul {
@@ -81,9 +89,9 @@ ul {
 
 .send-button {
   width: 10%;
-  border-radius: 50px;
-  margin-left: 5px;
+  margin-left: 15px;
   cursor: pointer;
+  background: seagreen;
 }
 
 .member {
@@ -92,29 +100,31 @@ ul {
   border: #000;
   cursor: pointer;
   margin: 5px 2px;
-  box-shadow: 0 8px 8px -4px lightblue;
+  box-shadow: 0 5px 5px -4px darkseagreen;
 }
 
 .member.active {
-  background: blueviolet;
+  background: darkolivegreen;
   color: #fff;
 }
 
 .member:hover {
-  background: grey;
+  background: darkseagreen;
   color: #fff;
 }
 
 .avatar {
-  background-color: cornflowerblue;
+  background-color: steelblue;
   padding: 3px 5px;
   border-radius: 5px;
   color: #fff;
+  width: 45px;
+  height: 45px;
 }
 
 .avatar.self {
-  color: #000;
-  background-color: greenyellow;
+  color: #fff;
+  background-color: darkcyan;
 }
 
 .message {
@@ -122,7 +132,6 @@ ul {
   width: auto;
   display: flex;
   flex-direction: row;
-  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   margin: 5px 10px;
 }
 
@@ -132,4 +141,81 @@ ul {
 
 .message.self {
   justify-content: end;
+}
+
+.box3-right {
+  min-width: 10px;
+  max-width: 400px;
+  margin: 10px 30px 10px auto;
+  border-radius: 15px;
+  background: #00bfb6;
+  color: #fff;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-family: arial, serif;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.box3-left {
+  min-width: 10px;
+  max-width: 400px;
+  margin: 5px auto 10px 30px;
+  border-radius: 15px;
+  background: lightblue;
+  color: #000000;
+  padding: 20px;
+  text-align: left;
+  font-weight: 600;
+  font-family: arial, serif;
+  position: relative;
+  word-wrap: break-word;
+}
+
+.sb13:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 15px solid #00bfb6;
+  border-right: 15px solid transparent;
+  border-top: 15px solid #00bfb6;
+  border-bottom: 15px solid transparent;
+  right: -16px;
+  top: 0;
+}
+
+.sb14:before {
+  content: "";
+  width: 0;
+  height: 0;
+  position: absolute;
+  border-left: 15px solid transparent;
+  border-right: 15px solid lightblue;
+  border-top: 15px solid lightblue;
+  border-bottom: 15px solid transparent;
+  left: -16px;
+  top: 0;
+}
+
+ol, ul {
+   padding-left: 1rem!important;
+   padding-right: 1rem!important;
+}
+
+.name-sender {
+  margin: 5px auto 10px 15px;
+  font-family: arial, serif;
+}
+
+.self-sender {
+  margin: 5px 15px 10px auto;
+  text-align: right;
+  font-family: arial, serif;
+}
+
+.chat-content {
+  padding-right: 1rem!important;
+  padding-top: 1rem!important;
 }

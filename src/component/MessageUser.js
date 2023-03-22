@@ -21,7 +21,7 @@ const AllUser = () => {
                     <div className='col-sm-6 col-lg-4'>
                         <div className="card text-center register" style={{width: '24rem'}}>
                             <div className="card-header">
-                                <img src={'logo192.png'} style={{width: "1rem"}}/> Alert <img src={'logo192.png'} style={{width: "1rem"}}/>
+                                <img src={'logo192.png'} style={{width: "1rem"}} alt="..."/> Alert <img src={'logo192.png'} style={{width: "1rem"}} alt="..."/>
                             </div>
                             <div className="card-body">
                                 <div className="card-body">
@@ -34,7 +34,7 @@ const AllUser = () => {
                 </div>
             ) : (
                 <>
-                    <h2 className="mt-5">Message atas nama <strong>{nama}</strong></h2>
+                    <h2 className="mt-5">Pesan atas nama <strong>{nama}</strong></h2>
                     <div className="row my-3">
                         {message.map(function(message, i){
                             return <div key={message.id} className="col-3 my-2">
