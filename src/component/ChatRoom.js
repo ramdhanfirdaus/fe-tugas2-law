@@ -26,7 +26,7 @@ const ChatRoom = () => {
         stompClient.subscribe('/chatroom/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
 
-        var chatMessage = {
+        let chatMessage = {
             senderName: userData.username,
             status: "JOIN"
         };
@@ -34,7 +34,7 @@ const ChatRoom = () => {
     }
 
     const onMessageReceived = (payload) => {
-        var payloadData = JSON.parse(payload.body);
+        let payloadData = JSON.parse(payload.body);
         if (payloadData.status === "JOIN") {
             if (!privateChats.get(payloadData.senderName)) {
                 privateChats.set(payloadData.senderName, []);
@@ -47,7 +47,7 @@ const ChatRoom = () => {
     }
 
     const onPrivateMessage = (payload) => {
-        var payloadData = JSON.parse(payload.body);
+        let payloadData = JSON.parse(payload.body);
         if (privateChats.get(payloadData.senderName)) {
             privateChats.get(payloadData.senderName).push(payloadData);
             setPrivateChats(new Map(privateChats));
@@ -75,7 +75,6 @@ const ChatRoom = () => {
                 message: userData.message,
                 status: "MESSAGE"
             };
-            console.log(chatMessage);
             stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
             setUserData({ ...userData, "message": "" });
         }
@@ -83,7 +82,7 @@ const ChatRoom = () => {
 
     const sendPrivateValue = () => {
         if (stompClient) {
-            var chatMessage = {
+            let chatMessage = {
                 senderName: userData.username,
                 receiverName: tab,
                 message: userData.message,
@@ -158,16 +157,32 @@ const ChatRoom = () => {
                         <ul className="chat-messages">
                             {[...privateChats.get(tab)].map((chat, index) => (
                                 <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                    {chat.senderName !== userData.username && <div className="avatar">{chat.senderName}</div>}
-                                    <div className="message-data">{chat.message}</div>
-                                    {chat.senderName === userData.username && <div className="avatar self">{chat.senderName}</div>}
+                                    {chat.senderName !== userData.username && <div className="avatar">
+                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                    </div>}
+                                    {chat.senderName !== userData.username && (
+                                        <div>
+                                            <p className='name-sender my-0'>{chat.senderName}</p>
+                                            <div className="box3-left sb14">{chat.message}</div>
+                                        </div>
+                                    )}
+                                    {/*<div className="message-data">{chat.message}</div>*/}
+                                    {chat.senderName === userData.username && (
+                                        <div>
+                                            <p className='self-sender my-0'>{chat.senderName}</p>
+                                            <div className="box3-right sb13">{chat.message}</div>
+                                        </div>
+                                    )}
+                                    {chat.senderName === userData.username && <div className="avatar self">
+                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                    </div>}
                                 </li>
                             ))}
                         </ul>
 
                         <div className="send-message">
-                            <input type="text" className="input-message" placeholder="enter the message" value={userData.message} onChange={handleMessage} />
-                            <button type="button" className="send-button" onClick={sendPrivateValue}>send</button>
+                            <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
+                            <button type="button" className="send-button rounded" onClick={sendPrivateValue}>Kirim</button>
                         </div>
                     </div>}
                 </div>
