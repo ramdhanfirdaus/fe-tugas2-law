@@ -17,7 +17,7 @@ const ChatRoom = () => {
     });
 
     const connect = () => {
-        let socket = new SockJS(BACKEND_URL + "/chat-app");
+        let socket = new SockJS(BACKEND_URL + "chat-app");
         stompClient = over(socket);
         stompClient.connect({}, onConnected, onError);
     }

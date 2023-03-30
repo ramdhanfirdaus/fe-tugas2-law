@@ -3,7 +3,7 @@ import {BACKEND_URL} from "./Config";
 
 class ChatService {
     sendPrivateMessage(chatMessage) {
-        return fetch(BACKEND_URL + "/chat", {
+        return fetch(BACKEND_URL + "chat", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(chatMessage),
@@ -16,7 +16,7 @@ class ChatService {
         };
 
         return axios
-            .get(BACKEND_URL + "/private-chat-user/" + nama, config)
+            .get(BACKEND_URL + "private-chat-user/" + nama, config)
             .then((response) => {
                 return(response.data)
             });

@@ -8,7 +8,7 @@ class UserService {
         };
 
         return axios
-            .get(BACKEND_URL + "/user", config)
+            .get(BACKEND_URL + "user", config)
             .then((response) => {
                 return(response.data)
             });
@@ -24,7 +24,7 @@ class UserService {
         }
 
         return axios
-            .post(BACKEND_URL + "/admin", data, config)
+            .post(BACKEND_URL + "admin", data, config)
             .then((response) => {
                 localStorage.setItem("user", JSON.stringify(response.data))
                 return(response.data)
