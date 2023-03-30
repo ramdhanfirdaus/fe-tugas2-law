@@ -1,8 +1,9 @@
 import axios from "axios";
+import {BACKEND_URL} from "./Config";
 
 class ChatService {
     sendPrivateMessage(chatMessage) {
-        return fetch('http://localhost:8080/chat', {
+        return fetch(BACKEND_URL + "/chat", {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(chatMessage),
@@ -15,7 +16,7 @@ class ChatService {
         };
 
         return axios
-            .get("http://localhost:8080/private-chat-user/" + nama, config)
+            .get(BACKEND_URL + "/private-chat-user/" + nama, config)
             .then((response) => {
                 return(response.data)
             });

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { over } from 'stompjs';
 import SockJS from 'sockjs-client';
 import ChatService from "../service/ChatService";
+import {BACKEND_URL} from "../service/Config";
 
 var stompClient = null;
 const ChatRoom = () => {
@@ -16,7 +17,7 @@ const ChatRoom = () => {
     });
 
     const connect = () => {
-        let socket = new SockJS('http://localhost:8080/chat-app');
+        let socket = new SockJS(BACKEND_URL + "/chat-app");
         stompClient = over(socket);
         stompClient.connect({}, onConnected, onError);
     }

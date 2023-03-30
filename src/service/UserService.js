@@ -1,4 +1,5 @@
 import axios from "axios";
+import {BACKEND_URL} from "./Config";
 
 class UserService {
     getAllUserPrivateChatroom() {
@@ -7,7 +8,7 @@ class UserService {
         };
 
         return axios
-            .get("http://localhost:8080/user", config)
+            .get(BACKEND_URL + "/user", config)
             .then((response) => {
                 return(response.data)
             });
@@ -23,7 +24,7 @@ class UserService {
         }
 
         return axios
-            .post("http://localhost:8080/admin", data, config)
+            .post(BACKEND_URL + "/admin", data, config)
             .then((response) => {
                 localStorage.setItem("user", JSON.stringify(response.data))
                 return(response.data)
