@@ -21,20 +21,12 @@ const App = () => {
       <Router>
           <ColorSchemesExample></ColorSchemesExample>
           <Routes>
-              <Route path='/' element={<ChatRoom/>} />
+              <Route exact path='/' element={<ChatRoom/>} />
               <Route path='logout' element={<Logout />} />
-              {currentUser ? (
-                  <>
-                      <Route path='/admin' element={<Navigate to='/user' />} />
-                      <Route path='/user' element={<AllUser/>} />
-                      <Route path='/message/:nama' element={<MessageUser />} />
-                  </>
-              ) : (
-                  <>
-                      <Route path='/admin' element={<CekAdmin/>} />
-                      <Route path='*' element={<Navigate to='/admin' />} />
-                  </>
-              )}
+              <Route path='/admin' element={currentUser ? <Navigate to='/user' /> : <CekAdmin />} />
+              <Route path='/user' element={currentUser ? <AllUser/> : <Navigate to='/admin' />} />
+              <Route path='/message/:nama' element={currentUser ? <MessageUser/> : <Navigate to='/admin' />} />
+              <Route path='*' element={<Navigate to='/' />} />
           </Routes>
       </Router>
   )

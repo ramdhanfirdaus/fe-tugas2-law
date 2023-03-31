@@ -112,11 +112,11 @@ const ChatRoom = () => {
                         <ul>
                             <li onClick={() => { setTab("CHATROOM") }} className={`member mb-3 rounded ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
                             {[...privateChats.keys()].map((name, index) => (
-                                <>
+                                <span key={name}>
                                     {userData.username !== name && (
                                         <li onClick={() => { setTab(name) }} className={`member mb-3 rounded ${tab === name && "active"}`} key={index}>{name}</li>
                                     )}
-                                </>
+                                </span>
                             ))}
                         </ul>
                     </div>

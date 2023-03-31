@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://law-tugas2-ramdhan.up.railway.app/";
+export const BACKEND_URL = "https://silver-retina-382214.et.r.appspot.com/";
