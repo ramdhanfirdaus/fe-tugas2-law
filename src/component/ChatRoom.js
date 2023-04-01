@@ -73,7 +73,7 @@ const ChatRoom = () => {
 
     const sendValue = () => {
         if (stompClient) {
-            var chatMessage = {
+            let chatMessage = {
                 senderName: userData.username,
                 message: userData.message,
                 status: "MESSAGE"
@@ -136,8 +136,6 @@ const ChatRoom = () => {
                         </div>
                         {tab === "CHATROOM" && <div className="chat-content">
                             <ul className="chat-messages">
-                                {/*<div className="box3-right sb13">I'm speech bubbleI'm speech bubbleI'm speech bubbleI'm speech bubble</div>*/}
-                                {/*<div className="box3-left sb14">I'm spee ch bubble</div>*/}
                                 {publicChats.map((chat, index) => (
                                     <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
                                         {chat.senderName !== userData.username && <div className="avatar">
@@ -149,7 +147,6 @@ const ChatRoom = () => {
                                                 <div className="box3-left sb14">{chat.message}</div>
                                             </div>
                                         )}
-                                        {/*<div className="message-data">{chat.message}</div>*/}
                                         {chat.senderName === userData.username && (
                                             <div>
                                                 <p className='self-sender my-0'>{chat.senderName}</p>
@@ -181,7 +178,6 @@ const ChatRoom = () => {
                                                 <div className="box3-left sb14">{chat.message}</div>
                                             </div>
                                         )}
-                                        {/*<div className="message-data">{chat.message}</div>*/}
                                         {chat.senderName === userData.username && (
                                             <div>
                                                 <p className='self-sender my-0'>{chat.senderName}</p>
