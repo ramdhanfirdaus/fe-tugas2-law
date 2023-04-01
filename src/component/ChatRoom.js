@@ -15,6 +15,7 @@ const ChatRoom = () => {
         connected: false,
         message: ''
     });
+    const [isInfoChat, setIsInfoChat] = useState(false);
 
     const connect = () => {
         let socket = new SockJS(BACKEND_URL + "chat-app");
@@ -26,6 +27,7 @@ const ChatRoom = () => {
         setUserData({ ...userData, "connected": true });
         stompClient.subscribe('/chatroom/public', onMessageReceived);
         stompClient.subscribe('/user/' + userData.username + '/private', onPrivateMessage);
+        setIsInfoChat(true);
 
         let chatMessage = {
             senderName: userData.username,
@@ -107,86 +109,99 @@ const ChatRoom = () => {
     return (
         <div className="container">
             {userData.connected ?
-                <div className="chat-box">
-                    <div className="member-list">
-                        <ul>
-                            <li onClick={() => { setTab("CHATROOM") }} className={`member mb-3 rounded ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
-                            {[...privateChats.keys()].map((name, index) => (
-                                <span key={name}>
+                <>
+                    {isInfoChat && (
+                        <div className="alert alert-success alert-dismissible fade show mt-3" role="alert">
+                            <div>
+                                <strong>Anda Masuk Sistem!</strong> Anda Telah Subscribe ke Public dan Private Chat Room
+                            </div>
+                            <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close"
+                                    onClick={() => setIsInfoChat(false)}
+                            ></button>
+                        </div>
+                    )}
+
+                    <div className="chat-box">
+                        <div className="member-list">
+                            <ul>
+                                <li onClick={() => { setTab("CHATROOM") }} className={`member mb-3 rounded ${tab === "CHATROOM" && "active"}`}>Chatroom</li>
+                                {[...privateChats.keys()].map((name, index) => (
+                                    <span key={name}>
                                     {userData.username !== name && (
                                         <li onClick={() => { setTab(name) }} className={`member mb-3 rounded ${tab === name && "active"}`} key={index}>{name}</li>
                                     )}
                                 </span>
-                            ))}
-                        </ul>
+                                ))}
+                            </ul>
+                        </div>
+                        {tab === "CHATROOM" && <div className="chat-content">
+                            <ul className="chat-messages">
+                                {/*<div className="box3-right sb13">I'm speech bubbleI'm speech bubbleI'm speech bubbleI'm speech bubble</div>*/}
+                                {/*<div className="box3-left sb14">I'm spee ch bubble</div>*/}
+                                {publicChats.map((chat, index) => (
+                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                        {chat.senderName !== userData.username && <div className="avatar">
+                                            <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                        </div>}
+                                        {chat.senderName !== userData.username && (
+                                            <div>
+                                                <p className='name-sender my-0'>{chat.senderName}</p>
+                                                <div className="box3-left sb14">{chat.message}</div>
+                                            </div>
+                                        )}
+                                        {/*<div className="message-data">{chat.message}</div>*/}
+                                        {chat.senderName === userData.username && (
+                                            <div>
+                                                <p className='self-sender my-0'>{chat.senderName}</p>
+                                                <div className="box3-right sb13">{chat.message}</div>
+                                            </div>
+                                        )}
+                                        {chat.senderName === userData.username && <div className="avatar self">
+                                            <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                        </div>}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <div className="send-message">
+                                <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
+                                <button type="button" className="send-button rounded" onClick={sendValue}>Kirim</button>
+                            </div>
+                        </div>}
+                        {tab !== "CHATROOM" && <div className="chat-content">
+                            <ul className="chat-messages">
+                                {[...privateChats.get(tab)].map((chat, index) => (
+                                    <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
+                                        {chat.senderName !== userData.username && <div className="avatar">
+                                            <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                        </div>}
+                                        {chat.senderName !== userData.username && (
+                                            <div>
+                                                <p className='name-sender my-0'>{chat.senderName}</p>
+                                                <div className="box3-left sb14">{chat.message}</div>
+                                            </div>
+                                        )}
+                                        {/*<div className="message-data">{chat.message}</div>*/}
+                                        {chat.senderName === userData.username && (
+                                            <div>
+                                                <p className='self-sender my-0'>{chat.senderName}</p>
+                                                <div className="box3-right sb13">{chat.message}</div>
+                                            </div>
+                                        )}
+                                        {chat.senderName === userData.username && <div className="avatar self">
+                                            <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
+                                        </div>}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <div className="send-message">
+                                <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
+                                <button type="button" className="send-button rounded" onClick={sendPrivateValue}>Kirim</button>
+                            </div>
+                        </div>}
                     </div>
-                    {tab === "CHATROOM" && <div className="chat-content">
-                        <ul className="chat-messages">
-                            {/*<div className="box3-right sb13">I'm speech bubbleI'm speech bubbleI'm speech bubbleI'm speech bubble</div>*/}
-                            {/*<div className="box3-left sb14">I'm spee ch bubble</div>*/}
-                            {publicChats.map((chat, index) => (
-                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                    {chat.senderName !== userData.username && <div className="avatar">
-                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
-                                    </div>}
-                                    {chat.senderName !== userData.username && (
-                                        <div>
-                                            <p className='name-sender my-0'>{chat.senderName}</p>
-                                            <div className="box3-left sb14">{chat.message}</div>
-                                        </div>
-                                    )}
-                                    {/*<div className="message-data">{chat.message}</div>*/}
-                                    {chat.senderName === userData.username && (
-                                        <div>
-                                            <p className='self-sender my-0'>{chat.senderName}</p>
-                                            <div className="box3-right sb13">{chat.message}</div>
-                                        </div>
-                                    )}
-                                    {chat.senderName === userData.username && <div className="avatar self">
-                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
-                                    </div>}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div className="send-message">
-                            <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
-                            <button type="button" className="send-button rounded" onClick={sendValue}>Kirim</button>
-                        </div>
-                    </div>}
-                    {tab !== "CHATROOM" && <div className="chat-content">
-                        <ul className="chat-messages">
-                            {[...privateChats.get(tab)].map((chat, index) => (
-                                <li className={`message ${chat.senderName === userData.username && "self"}`} key={index}>
-                                    {chat.senderName !== userData.username && <div className="avatar">
-                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
-                                    </div>}
-                                    {chat.senderName !== userData.username && (
-                                        <div>
-                                            <p className='name-sender my-0'>{chat.senderName}</p>
-                                            <div className="box3-left sb14">{chat.message}</div>
-                                        </div>
-                                    )}
-                                    {/*<div className="message-data">{chat.message}</div>*/}
-                                    {chat.senderName === userData.username && (
-                                        <div>
-                                            <p className='self-sender my-0'>{chat.senderName}</p>
-                                            <div className="box3-right sb13">{chat.message}</div>
-                                        </div>
-                                    )}
-                                    {chat.senderName === userData.username && <div className="avatar self">
-                                        <h3 className='text-center py-auto my-auto'>{chat.senderName.substring(0,1)}</h3>
-                                    </div>}
-                                </li>
-                            ))}
-                        </ul>
-
-                        <div className="send-message">
-                            <input type="text" className="input-message rounded" placeholder="Ketik pesan..." value={userData.message} onChange={handleMessage} />
-                            <button type="button" className="send-button rounded" onClick={sendPrivateValue}>Kirim</button>
-                        </div>
-                    </div>}
-                </div>
+                </>
                 :
                 <div className='row'>
                     <div className='col-lg-4'></div>
