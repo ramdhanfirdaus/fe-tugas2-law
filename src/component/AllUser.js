@@ -5,10 +5,12 @@ import { useNavigate  } from "react-router-dom";
 const AllUser = () => {
     let navigate  = useNavigate();
     const [user, setUser] = useState([]);
+    const [info, setInfo] = useState("Loading...");
 
     useEffect(() => {
         const getApi = async () => {
             setUser(await UserService.getAllUserPrivateChatroom())
+            setInfo("Tidak ada user pada sistem")
         }
         getApi()
     }, [])
@@ -29,7 +31,7 @@ const AllUser = () => {
                                 </div>
                                 <div className="card-body">
                                     <div className="card-body">
-                                        <p>Tidak ada user pada sistem</p>
+                                        <p>{info}</p>
                                     </div>
                                 </div>
                             </div>

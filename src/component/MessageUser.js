@@ -5,10 +5,12 @@ import ChatService from "../service/ChatService";
 const AllUser = () => {
     const [message, setMessage] = useState([]);
     let { nama } = useParams();
+    const [info, setInfo] = useState("Loading...");
 
     useEffect(() => {
         const getApi = async () => {
             setMessage(await ChatService.getPrivateChatByUser(nama))
+            setInfo("Tidak message dengan user bernama " + nama)
         }
         getApi()
     }, [nama])
@@ -25,7 +27,7 @@ const AllUser = () => {
                             </div>
                             <div className="card-body">
                                 <div className="card-body">
-                                    <p>Tidak message dengan user bernama {nama}</p>
+                                    <p>{info}</p>
                                 </div>
                             </div>
                         </div>
